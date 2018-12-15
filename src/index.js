@@ -1,12 +1,40 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import Header from './header'
+import Footer from './footer'
 import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const root = document.getElementById('root')
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+//include header
+root.innerHTML += Header;
+
+function buildGallery(data){
+    var gallery = document.createElement("div");
+        gallery.setAttribute('class', 'gallery');
+    for(let i=0; i<data.length; i++){
+        let galleryItem = document.createElement("div");
+        galleryItem.setAttribute('class', 'gallery-item');
+        let image = document.createElement("img");
+        image.setAttribute("src", data[i].image);
+        image.setAttribute("height", 300)
+        image.setAttribute("width", 300)
+        image.addEventListener("click", () => window.open(data[i].source, '_blank'))
+        galleryItem.appendChild(image);
+        gallery.appendChild(galleryItem);
+    }
+    root.appendChild(gallery)
+    
+    //include footer
+    root.innerHTML += Footer;
+  }
+
+var xhr = new XMLHttpRequest();
+xhr.open('GET', 'data/dogs.json');
+xhr.onload = function() {
+  if (xhr.status === 200) {
+     const { dogs } = JSON.parse(xhr.responseText)
+     buildGallery(dogs)
+  } else {
+      console.log('Request failed.  Returned status of ' + xhr.status);
+  }
+};
+xhr.send();
