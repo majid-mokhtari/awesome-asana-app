@@ -1,5 +1,6 @@
 import "./index.css";
-import App from "./app/Gallery";
+import App from "./app";
 
 const app = new App();
-app.fetchData();
+
+export default app;

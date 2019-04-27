@@ -1,28 +1,26 @@
-import Footer from "../footer";
-import Header from "../header";
 import Modal from "./modal/Modal";
 import "./styles.css";
 
 class Gallery {
   constructor() {
     this.data = [];
-    this.root = document.getElementById("root");
-    this.root.innerHTML += Header;
   }
-  fetchData() {
-    const self = this;
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", "data/dogs.json");
-    xhr.onload = function() {
-      if (xhr.status === 200) {
-        const { dogs } = JSON.parse(xhr.responseText);
-        this.data = dogs;
-        self.buildGallery(dogs);
-      } else {
-        console.log("Request failed.  Returned status of " + xhr.status);
-      }
-    };
-    xhr.send();
+  fetchData(params) {
+    const { limit, offset } = params;
+    return new Promise((resolve, reject) => {
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "data/dogs.json");
+      xhr.onload = function() {
+        if (xhr.status === 200) {
+          const { dogs } = JSON.parse(xhr.responseText);
+          this.data = dogs.slice(offset, offset + limit);
+          resolve(this.data);
+        } else {
+          reject("Request failed.  Returned status of " + xhr.status);
+        }
+      };
+      xhr.send();
+    });
   }
   buildGallery(data) {
     var gallery = document.createElement("div");
@@ -36,18 +34,15 @@ class Gallery {
       galleryItem.appendChild(image);
       gallery.appendChild(galleryItem);
     }
-    this.root.appendChild(gallery);
-    this.root.innerHTML += Footer;
-
+    return gallery;
+  }
+  bindImageClick() {
     const images = document.getElementsByClassName("gallery-img");
     for (let i = 0; i < images.length; i++) {
-      this.onImageClick(images[i]);
+      images[i].addEventListener("click", () => {
+        new Modal(images[i]);
+      });
     }
-  }
-  onImageClick(img) {
-    img.addEventListener("click", () => {
-      const modal = new Modal(img);
-    });
   }
 }
 
