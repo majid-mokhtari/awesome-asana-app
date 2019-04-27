@@ -18,6 +18,7 @@ class Gallery {
   fetchData(params) {
     const self = this;
     const { limit, offset } = params;
+    this.activePageIndex = Math.floor(offset / 8);
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
       xhr.open("GET", "data/dogs.json");
@@ -25,9 +26,7 @@ class Gallery {
         if (xhr.status === 200) {
           const { dogs } = JSON.parse(xhr.responseText);
           self.data = dogs;
-          const data = dogs.slice(offset, offset + limit);
-          self.activePageIndex = Math.floor(offset / 8);
-          resolve(data);
+          resolve(dogs.slice(offset, offset + limit));
         } else {
           reject("Request failed.  Returned status of " + xhr.status);
         }

@@ -15,7 +15,7 @@ class App {
   async renderBody() {
     const gallery = new Gallery();
     await gallery
-      .fetchData({ limit: 8, offset: 0 })
+      .fetchData({ limit: 10, offset: 0 })
       .then(res => {
         const gal = gallery.render(res);
         this.root.appendChild(gal);

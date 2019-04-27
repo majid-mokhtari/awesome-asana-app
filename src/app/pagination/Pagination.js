@@ -8,7 +8,7 @@ class Pagination {
   onPagClick(index) {
     const gallery = new Gallery();
     gallery
-      .fetchData({ limit: 8, offset: index * 8 })
+      .fetchData({ limit: 10, offset: index * 8 })
       .then(res => {
         gallery.render(res);
         gallery.bindEvents();
