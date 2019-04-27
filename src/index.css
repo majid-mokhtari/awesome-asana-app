@@ -7,12 +7,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+h1 {
+  margin-bottom: 0;
 }
-
 header {
   display: flex;
   text-align: center;
@@ -20,12 +17,9 @@ header {
   margin-bottom: 30px;
 }
 
-.gallery {
+footer {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
-
-.gallery-item {
-  margin-bottom: 50px;
+  text-align: center;
+  flex-direction: column;
+  margin-bottom: 30px;
 }
