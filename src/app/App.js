@@ -17,14 +17,14 @@ class App {
     await gallery
       .fetchData({ limit: 8, offset: 0 })
       .then(res => {
-        const gal = gallery.buildGallery(res);
+        const gal = gallery.render(res);
         this.root.appendChild(gal);
-        gallery.bindImageClick();
       })
       .catch(err => {
-        console.log(err);
+        console.log(`Error: ${err}`);
       });
     this.renderFooter();
+    gallery.bindEvents();
   }
   renderFooter() {
     this.root.innerHTML += Footer;

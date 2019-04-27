@@ -1,11 +1,22 @@
 import Modal from "./modal/Modal";
+import Pagination from "./pagination/Pagination";
 import "./styles.css";
 
 class Gallery {
   constructor() {
     this.data = [];
+    const gallery = document.getElementById("gallery-container");
+    if (!gallery) {
+      this.gallery = document.createElement("div");
+      this.gallery.setAttribute("id", "gallery-container");
+    } else {
+      this.gallery = gallery;
+    }
+    this.pagination = null;
+    this.activePageIndex = 0;
   }
   fetchData(params) {
+    const self = this;
     const { limit, offset } = params;
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
@@ -13,8 +24,10 @@ class Gallery {
       xhr.onload = function() {
         if (xhr.status === 200) {
           const { dogs } = JSON.parse(xhr.responseText);
-          this.data = dogs.slice(offset, offset + limit);
-          resolve(this.data);
+          self.data = dogs;
+          const data = dogs.slice(offset, offset + limit);
+          self.activePageIndex = Math.floor(offset / 8);
+          resolve(data);
         } else {
           reject("Request failed.  Returned status of " + xhr.status);
         }
@@ -22,7 +35,8 @@ class Gallery {
       xhr.send();
     });
   }
-  buildGallery(data) {
+  render(data) {
+    this.gallery.innerHTML = "";
     var gallery = document.createElement("div");
     gallery.setAttribute("class", "gallery");
     for (let i = 0; i < data.length; i++) {
@@ -34,15 +48,23 @@ class Gallery {
       galleryItem.appendChild(image);
       gallery.appendChild(galleryItem);
     }
-    return gallery;
+    const pag = this.buildPagination(this.activePageIndex);
+    this.gallery.appendChild(gallery);
+    this.gallery.appendChild(pag);
+    return this.gallery;
   }
-  bindImageClick() {
+  buildPagination(index) {
+    this.pagination = new Pagination(Math.ceil(this.data.length / 8));
+    return this.pagination.render(index);
+  }
+  bindEvents() {
     const images = document.getElementsByClassName("gallery-img");
     for (let i = 0; i < images.length; i++) {
       images[i].addEventListener("click", () => {
         new Modal(images[i]);
       });
     }
+    this.pagination.bindEvents();
   }
 }
 
