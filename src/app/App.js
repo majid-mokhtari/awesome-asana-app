@@ -1,5 +1,5 @@
-import Footer from "../footer";
-import Header from "../header";
+import footer from "../footer";
+import header from "../header";
 import Gallery from "./gallery/Gallery";
 import "./app.css";
 
@@ -11,7 +11,7 @@ class App {
     this.renderHeader();
   }
   async renderHeader() {
-    await Header()
+    await header()
       .then(res => {
         this.root.innerHTML += res;
       })
@@ -20,6 +20,7 @@ class App {
   }
   async renderGallery() {
     this.gallery = new Gallery();
+    //set limit and offset to control how many images we request from server
     await this.gallery
       .fetchData({ limit: 10, offset: 0 })
       .then(res => {
@@ -32,11 +33,12 @@ class App {
     this.renderFooter();
   }
   async renderFooter() {
-    await Footer()
+    await footer()
       .then(res => {
         this.root.innerHTML += res;
       })
       .catch(err => console.log(err));
+    //bind all events after whole page is loaded
     this.bindEvents();
   }
   bindEvents() {

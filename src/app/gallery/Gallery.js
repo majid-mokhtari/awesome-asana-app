@@ -18,6 +18,7 @@ class Gallery {
   fetchData(params) {
     const self = this;
     const { limit, offset } = params;
+    //calculate next page index
     this.activePageIndex = Math.floor(offset / 8);
     return new Promise((resolve, reject) => {
       fetch("data/dogs.json")
@@ -35,6 +36,7 @@ class Gallery {
     this.gallery.innerHTML = "";
     var gallery = document.createElement("div");
     gallery.setAttribute("class", "gallery");
+    //build gallery
     for (let i = 0; i < data.length; i++) {
       let galleryItem = document.createElement("div");
       galleryItem.setAttribute("class", "gallery-item");
@@ -44,12 +46,12 @@ class Gallery {
       galleryItem.appendChild(image);
       gallery.appendChild(galleryItem);
     }
-    const pag = this.buildPagination(this.activePageIndex);
+    const pag = this.getPagination(this.activePageIndex);
     this.gallery.appendChild(gallery);
     this.gallery.appendChild(pag);
     return this.gallery;
   }
-  buildPagination(index) {
+  getPagination(index) {
     this.pagination = new Pagination(Math.ceil(this.data.length / 8));
     return this.pagination.render(index);
   }

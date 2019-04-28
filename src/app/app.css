@@ -20,3 +20,9 @@
   display: flex;
   flex-direction: column;
 }
+
+@media only screen and (max-width: 700px) {
+  .header-quote {
+    max-width: 350px;
+  }
+}

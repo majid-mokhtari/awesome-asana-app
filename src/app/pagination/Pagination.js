@@ -18,6 +18,7 @@ class Pagination {
       });
   }
   render(activePageIndex) {
+    //build pagination
     const ul = document.createElement("ul");
     ul.setAttribute("class", "pagination");
     for (let i = 0; i < this.totalPages; i++) {
