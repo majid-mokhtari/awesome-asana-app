@@ -1,5 +1,5 @@
 import "./pagination.css";
-import Gallery from "../Gallery";
+import Gallery from "../gallery/Gallery";
 
 class Pagination {
   constructor(total) {

@@ -1,7 +1,7 @@
 import Footer from "../footer";
 import Header from "../header";
-import Gallery from "./Gallery";
-import "./styles.css";
+import Gallery from "./gallery/Gallery";
+import "./app.css";
 
 class App {
   constructor() {

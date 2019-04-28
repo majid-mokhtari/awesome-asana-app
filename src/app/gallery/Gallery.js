@@ -1,6 +1,6 @@
-import Modal from "./modal/Modal";
-import Pagination from "./pagination/Pagination";
-import "./styles.css";
+import Modal from "../modal/Modal";
+import Pagination from "../pagination/Pagination";
+import "./gallery.css";
 
 class Gallery {
   constructor() {
