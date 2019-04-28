@@ -2,8 +2,8 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  width: 80%;
-  min-height: calc(100vh - 320px);
+  width: 70%;
+  min-height: calc(100vh - 350px);
   margin: 0 auto;
 }
 
@@ -12,8 +12,8 @@
 }
 
 .gallery-item img {
-  width: 200px;
-  height: 200px;
+  width: 180px;
+  height: 180px;
   cursor: pointer;
   border-radius: 5px;
   -webkit-border-radius: 5px;
