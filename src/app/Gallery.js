@@ -20,18 +20,15 @@ class Gallery {
     const { limit, offset } = params;
     this.activePageIndex = Math.floor(offset / 8);
     return new Promise((resolve, reject) => {
-      var xhr = new XMLHttpRequest();
-      xhr.open("GET", "data/dogs.json");
-      xhr.onload = function() {
-        if (xhr.status === 200) {
-          const { dogs } = JSON.parse(xhr.responseText);
+      fetch("data/dogs.json")
+        .then(response => {
+          return response.json();
+        })
+        .then(({ dogs }) => {
           self.data = dogs;
           resolve(dogs.slice(offset, offset + limit));
-        } else {
-          reject("Request failed.  Returned status of " + xhr.status);
-        }
-      };
-      xhr.send();
+        })
+        .catch(err => reject(err));
     });
   }
   render(data) {

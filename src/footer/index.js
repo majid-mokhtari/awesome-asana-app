@@ -1,6 +1,12 @@
-var ajax = new XMLHttpRequest();
-ajax.open("GET", "snippets/footer.html", false);
-ajax.send();
-const footer =  ajax.responseText;
-
-export default footer
+export default function() {
+  return new Promise((resolve, reject) => {
+    fetch("snippets/footer.html")
+      .then(response => {
+        return response.text();
+      })
+      .then(body => {
+        resolve(body);
+      })
+      .catch(err => reject(err));
+  });
+}

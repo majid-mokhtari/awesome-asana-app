@@ -1,6 +1,12 @@
-var ajax = new XMLHttpRequest();
-ajax.open("GET", "snippets/header.html", false);
-ajax.send();
-const header =  ajax.responseText;
-
-export default header
+export default function() {
+  return new Promise((resolve, reject) => {
+    fetch("snippets/header.html")
+      .then(response => {
+        return response.text();
+      })
+      .then(body => {
+        resolve(body);
+      })
+      .catch(err => reject(err));
+  });
+}
