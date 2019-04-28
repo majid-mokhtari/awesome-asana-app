@@ -1,8 +1,8 @@
 Please follow the instruction below to run the application:
 
 1. clone the repo
-2. cd market-place and run 'npm install'
-3. cd market-place and run 'npm start'
+2. cd awesome-asana-app and run 'npm install'
+3. cd awesome-asana-app and run 'npm start'
 
 
 # Asana WebDev Take-Home Exercise
