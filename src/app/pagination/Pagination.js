@@ -5,6 +5,7 @@ class Pagination {
   constructor(total) {
     this.totalPages = total;
   }
+
   onPagClick(index) {
     const gallery = new Gallery();
     gallery
@@ -17,6 +18,7 @@ class Pagination {
         console.log(`Error: ${err}`);
       });
   }
+
   render(activePageIndex) {
     //build pagination
     const ul = document.createElement("ul");
@@ -32,6 +34,7 @@ class Pagination {
     }
     return ul;
   }
+
   bindEvents() {
     const lis = document.getElementsByClassName("pag-item");
     for (let i = 0; i < lis.length; i++) {

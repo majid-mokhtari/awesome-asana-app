@@ -15,6 +15,7 @@ class Gallery {
     this.pagination = null;
     this.activePageIndex = 0;
   }
+
   fetchData(params) {
     const self = this;
     const { limit, offset } = params;
@@ -32,6 +33,7 @@ class Gallery {
         .catch(err => reject(err));
     });
   }
+
   render(data) {
     this.gallery.innerHTML = "";
     var gallery = document.createElement("div");
@@ -51,10 +53,12 @@ class Gallery {
     this.gallery.appendChild(pag);
     return this.gallery;
   }
+
   getPagination(index) {
     this.pagination = new Pagination(Math.ceil(this.data.length / 8));
     return this.pagination.render(index);
   }
+
   bindEvents() {
     const images = document.getElementsByClassName("gallery-img");
     for (let i = 0; i < images.length; i++) {

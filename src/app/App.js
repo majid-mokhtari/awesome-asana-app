@@ -7,9 +7,11 @@ class App {
   constructor() {
     this.root = document.getElementById("root");
   }
+
   render() {
     this.renderHeader();
   }
+
   async renderHeader() {
     await header()
       .then(res => {
@@ -18,9 +20,11 @@ class App {
       .catch(err => console.log(err));
     this.renderGallery();
   }
+
   async renderGallery() {
     this.gallery = new Gallery();
-    //set limit and offset to control how many images we request from server
+    //set limit and offset to for pagination
+    //to control how many images we request from server
     await this.gallery
       .fetchData({ limit: 10, offset: 0 })
       .then(res => {
@@ -32,6 +36,7 @@ class App {
       });
     this.renderFooter();
   }
+
   async renderFooter() {
     await footer()
       .then(res => {
@@ -41,6 +46,7 @@ class App {
     //bind all events after whole page is loaded
     this.bindEvents();
   }
+
   bindEvents() {
     this.gallery.bindEvents();
   }
