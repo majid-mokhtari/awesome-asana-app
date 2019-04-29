@@ -63,7 +63,8 @@ class Gallery {
     const images = document.getElementsByClassName("gallery-img");
     for (let i = 0; i < images.length; i++) {
       images[i].addEventListener("click", () => {
-        new Modal(images[i]);
+        const modal = new Modal();
+        modal.render(images[i]);
       });
     }
     this.pagination.bindEvents();

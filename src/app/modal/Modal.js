@@ -1,13 +1,17 @@
 import "./modal.css";
 
 class Modal {
-  constructor(img) {
+  constructor() {
     this.modal = document.getElementById("myModal");
+  }
+  close() {
+    this.modal.style.display = "none";
+  }
+  render(img) {
     this.modal.innerHTML = "";
-
     const closeBtn = document.createElement("span");
     closeBtn.setAttribute("class", "close");
-    closeBtn.addEventListener("click", () => this.closeModal());
+    closeBtn.addEventListener("click", () => this.close());
     closeBtn.innerHTML = "&times;";
 
     const modalContent = document.createElement("img");
@@ -17,9 +21,6 @@ class Modal {
     this.modal.appendChild(closeBtn);
     this.modal.appendChild(modalContent);
     this.modal.style.display = "block";
-  }
-  closeModal() {
-    this.modal.style.display = "none";
   }
 }
 
