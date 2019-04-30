@@ -17,7 +17,7 @@
   cursor: pointer;
 }
 
-.pagination li:hover {
+.pagination li:hover:not(.active) {
   border: 1px solid gray;
 }
 

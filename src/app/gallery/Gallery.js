@@ -42,8 +42,7 @@ class Gallery {
     for (let i = 0; i < data.length; i++) {
       let galleryItem = document.createElement("div");
       galleryItem.setAttribute("class", "gallery-item");
-      let image = document.createElement("img");
-      image.setAttribute("src", data[i].image);
+      let image = new Image();
       image.setAttribute("class", "gallery-img");
       galleryItem.appendChild(image);
       gallery.appendChild(galleryItem);
@@ -62,6 +61,13 @@ class Gallery {
   bindEvents() {
     const images = document.getElementsByClassName("gallery-img");
     for (let i = 0; i < images.length; i++) {
+      //lazing loading images
+      var downloadingImage = new Image();
+      downloadingImage.onload = function() {
+        images[i].src = this.src;
+      };
+      downloadingImage.src = this.data[i].image;
+      //open modal when clicked
       images[i].addEventListener("click", () => {
         const modal = new Modal();
         modal.render(images[i]);
