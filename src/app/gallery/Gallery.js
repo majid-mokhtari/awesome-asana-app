@@ -49,15 +49,15 @@ class Gallery {
       galleryItem.appendChild(image);
       gallery.appendChild(galleryItem);
     }
-    const pag = this.getPagination(this.activePageIndex);
+    const pag = this.getPagination();
     this.gallery.appendChild(gallery);
     this.gallery.appendChild(pag);
     return this.gallery;
   }
 
-  getPagination(index) {
+  getPagination() {
     this.pagination = new Pagination(Math.ceil(this.totalImages / 8));
-    return this.pagination.render(index);
+    return this.pagination.render(this.activePageIndex);
   }
 
   bindEvents() {
