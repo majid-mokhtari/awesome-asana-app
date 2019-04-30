@@ -14,6 +14,7 @@ class Gallery {
     }
     this.pagination = null;
     this.activePageIndex = 0;
+    this.totalImages = 0;
   }
 
   fetchData(params) {
@@ -27,19 +28,20 @@ class Gallery {
           return response.json();
         })
         .then(({ dogs }) => {
-          self.data = dogs;
-          resolve(dogs.slice(offset, offset + limit));
+          self.totalImages = dogs.length;
+          self.data = dogs.slice(offset, offset + limit);
+          resolve(self.data);
         })
         .catch(err => reject(err));
     });
   }
 
-  render(data) {
+  render() {
     this.gallery.innerHTML = "";
     var gallery = document.createElement("div");
     gallery.setAttribute("class", "gallery");
     //build gallery
-    for (let i = 0; i < data.length; i++) {
+    for (let i = 0; i < this.data.length; i++) {
       let galleryItem = document.createElement("div");
       galleryItem.setAttribute("class", "gallery-item");
       let image = new Image();
@@ -54,7 +56,7 @@ class Gallery {
   }
 
   getPagination(index) {
-    this.pagination = new Pagination(Math.ceil(this.data.length / 8));
+    this.pagination = new Pagination(Math.ceil(this.totalImages / 8));
     return this.pagination.render(index);
   }
 
